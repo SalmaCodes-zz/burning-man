@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* html {
+    background-color: black;
+    color: white;
+} */
+
+#wrapper {
+    width: 960px;
+    border: 1px solid black;
+    margin: 20px auto;
+}
+
+.error {
+    color: red;
+}

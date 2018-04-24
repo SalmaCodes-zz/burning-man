@@ -1,0 +1,23 @@
+<h1>Welcome, {{user.name}}!</h1>
+
+<div class="error">
+  {{error}}
+</div>
+
+<h4>Create New Game</h4>
+<form (submit)="onNewGameSubmit()">
+  <div>
+    <label for="newGameWord">Word:</label>
+    <input type="text" name="newGameWord" [(ngModel)]="newGameWord">
+  </div>
+  <input type="submit" value="New Game">
+</form>
+
+<h4>Join an Existing Game</h4>
+<form (submit)="onJoinGameSubmit()">
+  <div>
+    <label for="gameId">ID:</label>
+    <input type="text" name="gameId" [(ngModel)]="gameId">
+  </div>
+  <input type="submit" value="Join Game">
+</form>
