@@ -22,13 +22,13 @@ html {
     text-align: center;
 }
 .column.stats {
-    width: 300px;
+    width: 350px;
     padding-right: 50px;
 }
 .column.man {
     border-bottom: 1px solid firebrick;
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 297px;
     /* background-image: url('assets/img/stickman2.png') no-repeat; */
     background-position: 0 0;
     position: relative;

@@ -15,10 +15,10 @@
     <div class="box">
       <h4>The Word: (hint: {{game.hint}})</h4>
       <p *ngIf="game.host._id == user._id">(Only you can see this: {{game.word}})</p>
-      <h1 *ngFor="let l of game.word.split('')" class="word-letter">
+      <h2 *ngFor="let l of game.word.split('')" class="word-letter">
         <span *ngIf="game.guesses.indexOf(l) > -1; else dash">{{l}}</span>
         <ng-template #dash>__</ng-template>
-      </h1>
+      </h2>
     </div>
 
     <div class="box">
@@ -75,6 +75,15 @@
         <div class="fire p-4"></div>
         <div class="fire p-5"></div>
         <div class="fire p-6"></div>
+    </div>
+    <div *ngIf="game.burnLevel == 7">
+        <div class="fire p-1"></div>
+        <div class="fire p-2"></div>
+        <div class="fire p-3"></div>
+        <div class="fire p-4"></div>
+        <div class="fire p-5"></div>
+        <div class="fire p-6"></div>
+        <div class="fire p-7"></div>
     </div>
     
   </div>
