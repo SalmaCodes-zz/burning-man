@@ -2,7 +2,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+var simplecrypt = require('simplecrypt');
+
+var sc = simplecrypt();
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -84,26 +86,16 @@ UserSchema.pre('save', function (next) {
     // only hash the password if it has been modified (or is new)
     if (!user.isModified('password')) return next();
 
-    // generate a salt
-    bcrypt.genSalt(10 /* SALT_WORK_FACTOR */, function (err, salt) {
-        if (err) return next(err);
-
-        // hash the password along with our new salt
-        bcrypt.hash(user.password, salt, function (err, hash) {
-            if (err) return next(err);
-
-            // override the cleartext password with the hashed one
-            user.password = hash;
-            next();
-        });
-    });
+    // hash the password along with our new salt
+    var hash = sc.hash(user.password)
+    // override the cleartext password with the hashed one
+    user.password = hash;
+    next();
 })
 
 UserSchema.methods.comparePassword = function (candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
-        if (err) return cb(err);
-        cb(null, isMatch);
-    });
+    var isMatch = sc.encrypt(candidatePassword) == this.password;
+    cb(null, isMatch);
 };
 
 var User = mongoose.model('User', UserSchema);
