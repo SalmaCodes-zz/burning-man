@@ -1,48 +1,42 @@
-<h1>Welcome, {{user.name}}!</h1>
+<div class="page dashboard">
+  <h1>Welcome, {{user.name}}!</h1>
 
-<div class="error">
-  {{error}}
-</div>
-
-<h4>Host a New Game</h4>
-<form (submit)="onNewGameSubmit()">
-  <div>
-    <label for="newGameWord">Word:</label>
-    <input type="text" name="newGameWord" [(ngModel)]="newGameWord">
+  <div class="error">
+    {{error}}
   </div>
-  <div>
-    <label for="newGameHint">Hint:</label>
-    <input type="text" name="newGameHint" [(ngModel)]="newGameHint">
-  </div>
-  <input type="submit" value="New Game">
-</form>
 
-<div class="games">
-  <h4>Active Games You're Hosting/Playing:</h4>
-  <div *ngFor="let game of activeGames; let i = index">
-    <div *ngIf="game.host._id == user._id || game.player._id == user._id">
-      <a [routerLink]="['/game', game._id]">
-        {{i + 1}}) by {{game.host.username}} - (Hint: {{game.hint}})
-      </a>
+  <h4>Host a New Game</h4>
+  <form (submit)="onNewGameSubmit()">
+    <div>
+      <label for="newGameWord">Word:</label>
+      <input type="text" name="newGameWord" [(ngModel)]="newGameWord">
+    </div>
+    <div>
+      <label for="newGameHint">Hint:</label>
+      <input type="text" name="newGameHint" [(ngModel)]="newGameHint">
+    </div>
+    <input type="submit" value="New Game">
+  </form>
+
+  <div class="games">
+    <h4>Active Games You're Hosting/Playing:</h4>
+    <div *ngFor="let game of activeGames; let i = index">
+      <div *ngIf="game.host._id == user._id || (game.player && game.player._id == user._id)">
+        <a [routerLink]="['/game', game._id]">
+          {{i + 1}}) by {{game.host.username}} - (Hint: {{game.hint}})
+        </a>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- <h4>Join an Existing Game</h4> -->
-<!-- <form (submit)="onJoinGameSubmit()">
-  <div>
-    <label for="gameId">ID:</label>
-    <input type="text" name="gameId" [(ngModel)]="gameId">
-  </div>
-  <input type="submit" value="Join Game">
-</form> -->
-<div class="games">
-  <h4>Active Games You Can Join:</h4>
-  <div *ngFor="let game of activeGames; let i = index">
-    <div *ngIf="game.host._id != user._id && !game.player">
-      <a [routerLink]="['/game', game._id]">
-        {{i + 1}}) by {{game.host.username}} - (Hint: {{game.hint}})
-      </a>
+  <div class="games">
+    <h4>Active Games You Can Join:</h4>
+    <div *ngFor="let game of activeGames; let i = index">
+      <div *ngIf="game.host._id != user._id && !game.player">
+        <a [routerLink]="['/game', game._id]">
+          {{i + 1}}) by {{game.host.username}} - (Hint: {{game.hint}})
+        </a>
+      </div>
     </div>
   </div>
 </div>

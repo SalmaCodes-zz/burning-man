@@ -2,30 +2,156 @@
     margin: 0;
     padding: 0;
 }
-/* html {
-    background-color: black;
-    color: white;
-} */
+html {
+    background-color: #111;
+    color: orange;
+    font-family:Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
+}
 #wrapper {
-    width: 960px;
-    border: 1px solid black;
-    margin: 20px auto;
+    width: 720px;
+    margin: 10px auto;
+    border-right: 2px solid red;
+    border-left: 2px solid orangered;
+    padding: 5px 0;
+}
+.page {
+    padding: 0 20px;
+    /* text-align: center; */
+}
+.dashboard {
+    text-align: center;
+}
+.column.stats {
+    width: 300px;
+    padding-right: 50px;
+}
+.column.man {
+    border-bottom: 1px solid firebrick;
+    width: 300px;
+    height: 300px;
+    /* background-image: url('assets/img/stickman2.png') no-repeat; */
+    background-position: 0 0;
+    position: relative;
+}
+.fire {
+    /* border: 2px solid blue; */
+    background-image: url('assets/img/fire.gif');
+    background-size: 140px 140px;
+    width: 140px;
+    height: 140px;
+    position: absolute;
+}
+.stickman {
+    position: absolute;
+}
+.fire.p-0 {
+    display: none;
+}
+.fire.p-1 {
+    /* left arm */
+    left: 17px;
+    top: 50px;
+}
+.fire.p-2 {
+    /* right arm */
+    left: 60px;
+    top: 50px;
+}
+.fire.p-3 {
+    /* left leg */
+    left: 17px;
+    top: 126px;  
+}
+.fire.p-4 {
+    /* right leg */
+    left: 60px;
+    top: 126px;
+}
+.fire.p-5 {
+    /* torso */
+    left: 32px;
+    top: 75px; 
+}
+.fire.p-6 {
+    /* head */
+    left: 32px;
+    top: 0px;   
+}
+.fire.p-7 {
+    /* everything */
+    left: -50px;
+    top: -30px; 
+    width: 300px;
+    height: 300px;
+    background-size: 300px 300px;  
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: lighter;
+    padding-bottom: 10px;
+}
+h2 {
+    color: orange;
+}
+a {
+    font-size: 1.2em;
+    color: darkcyan;
+}
+.welcome {
+    color: orangered;
+    text-align: center;
+}
+.column {
+    display: inline-block;
+    vertical-align: top;
+}
+#registration, #login {
+    margin-top: 50px;
+    width: 350px;
+    text-align: center;
+}
+#registration {
+    border-right: 1px dashed red;
+}
+label {
+    display: block;
+    font-size: 1.1em;
+    padding-top: 10px;
+}
+input {
+    padding: 2px 4px;
+    font-size: 0.9em;
+    font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
+
+}
+input[type="submit"], button {
+    margin: 15px 0 25px 0;
+    border: 2px solid orangered;
+    box-shadow: 2px 2px purple;
+    color: orange;
+    background-color: darkred;
+    font-size: 0.9em;
+    padding: 2px 4px;
+}
+.letter-input {
+    width: 2em;
+    font-size: 1em;
 }
 .error {
     color: red;
 }
-.man {
-    width: 300px;
-    height: 600px;
-    border: 2px solid red;
-}
-.fire {
-    border: 2px solid blue;
-    background-image: url('assets/img/fire1.gif');
-    height: 100px;
-    width: 100px;
-}
+
 .word-letter {
     display: inline-block;
     padding: 10px;
+}
+.box {
+    border-bottom: 1px dashed red;
+    /* border-top: 1px dashed darkorange; */
+    padding: 10px 0;
+    margin: 10px 0;
+    min-height: 50px;
+}
+.box h4 {
+    padding-bottom: 5px;
 }

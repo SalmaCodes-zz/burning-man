@@ -265,7 +265,7 @@ io.sockets.on('connection', function (socket) {
                     } else {
                         if (game) {
                             console.log("GAME #2");
-                            if (game.active == false || game.burnLevel >= 5) {
+                            if (game.active == false || game.burnLevel >= 7) {
                                 console.log("GAME #3");
                                 let error = { message: "Game is over!" };
                                 result = { message: "Error", error: error };
@@ -300,7 +300,7 @@ io.sockets.on('connection', function (socket) {
                             } else {
                                 game.misses.push(data.guess);
                                 game.burnLevel++;
-                                if (game.burnLevel >= 5) {
+                                if (game.burnLevel >= 7) {
                                     game.status = false;
                                 }
                             }

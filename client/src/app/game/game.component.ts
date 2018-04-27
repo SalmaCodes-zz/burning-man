@@ -45,8 +45,8 @@ export class GameComponent implements OnInit {
     }
     this.route.params.subscribe(params => {
       this.gameId = params.id;
-      this.getGameFromService();
       this.initToConnection();
+      this.getGameFromService();
     })
   }
 
@@ -60,6 +60,7 @@ export class GameComponent implements OnInit {
         console.log("GAME UPDATE ERROR", data['error']);
       } else {
         this.game = data['data'];
+        this.getGameFromService();
         console.log("GAME UPDATE", data['data']);
       }
     });
@@ -91,6 +92,7 @@ export class GameComponent implements OnInit {
   }
 
   sendGuess() {
+    this.guess = this.guess.toUpperCase();
     console.log("Guessed", this.guess);
     if (this.game.guesses.includes(this.guess) ||
       this.game.misses.includes(this.guess)) {

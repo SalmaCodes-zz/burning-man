@@ -1,57 +1,81 @@
-<p>
-  Game: {{game._id}}
-</p>
-
-<div class="game">
-
-  <h1>Host: {{game.host.username}}</h1>
+<div class="page game">
+  <h2>Host: {{game.host.username}}</h2>
   <h2 *ngIf="game.player">Player: {{game.player.username}}</h2>
   <h2 *ngIf="!game.player">Player: waiting...</h2>
 
-  <h2>Burn Level: {{game.burnLevel}}</h2>
-  <h2>Active: {{game.status}}</h2>
+  <div class="column stats">
+    <p>Burn Level: {{game.burnLevel}}</p>
+    <p>Active: {{game.status}}</p>
 
-  <div class="result">
-    <h2 *ngIf="game.win">{{game.player.name}} Won!</h2>
-    <h2 *ngIf="!game.win && !game.status">{{game.player.name}} Lost!</h2>
+    <div class="result">
+      <h1 class="win" *ngIf="game.win">{{game.player.name}} Won!</h1>
+      <h1 class="loss" *ngIf="!game.win && !game.status">{{game.player.name}} Lost!</h1>
+    </div>
+
+    <div class="box">
+      <h4>The Word: (hint: {{game.hint}})</h4>
+      <p *ngIf="game.host._id == user._id">(Only you can see this: {{game.word}})</p>
+      <h1 *ngFor="let l of game.word.split('')" class="word-letter">
+        <span *ngIf="game.guesses.indexOf(l) > -1; else dash">{{l}}</span>
+        <ng-template #dash>__</ng-template>
+      </h1>
+    </div>
+
+    <div class="box">
+      <h4>Guesses</h4>
+      <span *ngFor="let guess of game.guesses" class="guess">
+        {{guess}}
+      </span>
+    </div>
+
+    <div class="box">
+      <h4>Misses</h4>
+      <span *ngFor="let miss of game.misses" class="miss">
+        {{miss}}
+      </span>
+    </div>
+
+    <!-- TODO: disable after one guess is sent until all updates are recieved -->
+    <div *ngIf="game.host._id != user._id && game.status">
+      <input type="text" minlength="1" maxlength="1" class="letter-input" [(ngModel)]="guess">
+      <button (click)="sendGuess()">Guess</button>
+    </div>
   </div>
-
-  <div class="box">
-    <h4>The Word</h4>
-    <p *ngIf="game.host._id == user._id">(Only you can see this: {{game.word}})</p>
-    <h1 *ngFor="let l of game.word.split('')" class="word-letter">
-      <span *ngIf="game.guesses.indexOf(l) > -1; else dash">{{l}}</span>
-      <ng-template #dash>__</ng-template>
-    </h1>
+  <div class="column man">
+    <img class="stickman" src='assets/img/stickman2.png'>
+    <div *ngIf="game.burnLevel == 1">
+        <div class="fire p-1"></div>
+    </div>
+    <div *ngIf="game.burnLevel == 2">
+        <div class="fire p-1"></div>
+        <div class="fire p-2"></div>
+    </div>
+    <div *ngIf="game.burnLevel == 3">
+        <div class="fire p-1"></div>
+        <div class="fire p-2"></div>
+        <div class="fire p-3"></div>
+    </div>
+    <div *ngIf="game.burnLevel == 4">
+        <div class="fire p-1"></div>
+        <div class="fire p-2"></div>
+        <div class="fire p-3"></div>
+        <div class="fire p-4"></div>
+    </div>
+    <div *ngIf="game.burnLevel == 5">
+        <div class="fire p-1"></div>
+        <div class="fire p-2"></div>
+        <div class="fire p-3"></div>
+        <div class="fire p-4"></div>
+        <div class="fire p-5"></div>
+    </div>
+    <div *ngIf="game.burnLevel == 6">
+        <div class="fire p-1"></div>
+        <div class="fire p-2"></div>
+        <div class="fire p-3"></div>
+        <div class="fire p-4"></div>
+        <div class="fire p-5"></div>
+        <div class="fire p-6"></div>
+    </div>
+    
   </div>
-
-  <div class="box">
-    <h4>Guesses</h4>
-    <span *ngFor="let guess of game.guesses" class="guess">
-      {{guess}}
-    </span>
-  </div>
-
-  <div class="box">
-    <h4>Misses</h4>
-    <span *ngFor="let miss of game.misses" class="miss">
-      {{miss}}
-    </span>
-  </div>
-
-  <!-- TODO: disable after one guess is sent until all updates are recieved -->
-  <div *ngIf="game.host._id != user._id && game.status">
-    <input type="text" minlength="1" maxlength="1" [(ngModel)]="guess">
-    <button (click)="sendGuess()">Guess</button>
-  </div>
-
-
-  <!-- <div class="man">
-    <div class="fire one"></div>
-    <img src="assets/img/fire1.gif">
-    <img src="assets/img/fire2.gif">
-    <img src="assets/img/fire3.jpg">
-    <img src="assets/img/fire4.jpg">
-  </div> -->
-
 </div>
