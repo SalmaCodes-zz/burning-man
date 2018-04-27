@@ -12,6 +12,8 @@ export class DashboardComponent implements OnInit {
   user;
   gameId: string = "";
   newGameWord: string = "";
+  newGameHint: string = "";
+  activeGames: object[] = [];
   error: string = "";
   // activeGame: get from locker
 
@@ -24,13 +26,22 @@ export class DashboardComponent implements OnInit {
       this.router.navigate(['']);
     } else {
       this.user = user;
+      this._http.getActiveGames().subscribe(data => {
+        if (data['message'] == 'Error') {
+          this.error = data['error']['message'];
+        } else {
+          console.log("active games", data['data']);
+          this.activeGames = data['data'];
+        }
+      })
     }
   }
 
   // id: 5adfab92c2e6fa2b317bd8c7
-
   onNewGameSubmit() {
-    this._http.newGame(this.newGameWord).subscribe(data => {
+    this._http.newGame(this.newGameWord, 
+      this.newGameHint, 
+      this.user._id).subscribe(data => {
       if (data['message'] == 'Error') {
         this.error = data['error']['message'];
       } else {
@@ -42,14 +53,14 @@ export class DashboardComponent implements OnInit {
 
   onJoinGameSubmit() {
     // TODO: navigate to the game page directly.
-    this._http.getGame(this.gameId).subscribe(data => {
-      if (data['message'] == 'Error') {
-        this.error = data['error']['message'];
-      } else {
-        console.log('GAME DATA', data['data']);
-        this.router.navigate(['/game/' + data['data']['_id']]);
-      }
-    })
+    // this._http.getGame(this.gameId).subscribe(data => {
+    //   if (data['message'] == 'Error') {
+    //     this.error = data['error']['message'];
+    //   } else {
+    //     console.log('GAME DATA', data['data']);
+        this.router.navigate(['/game/' + this.gameId]);
+    //   }
+    // })
   }
 
 }

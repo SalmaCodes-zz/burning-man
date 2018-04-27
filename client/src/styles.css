@@ -2,18 +2,30 @@
     margin: 0;
     padding: 0;
 }
-
 /* html {
     background-color: black;
     color: white;
 } */
-
 #wrapper {
     width: 960px;
     border: 1px solid black;
     margin: 20px auto;
 }
-
 .error {
     color: red;
+}
+.man {
+    width: 300px;
+    height: 600px;
+    border: 2px solid red;
+}
+.fire {
+    border: 2px solid blue;
+    background-image: url('assets/img/fire1.gif');
+    height: 100px;
+    width: 100px;
+}
+.word-letter {
+    display: inline-block;
+    padding: 10px;
 }

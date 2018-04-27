@@ -15,12 +15,16 @@ export class HttpService {
     return this._http.post('/users/login', user);
   }
 
+  getActiveGames() {
+    return this._http.get('/games');
+  }
   getGame(id) {
     return this._http.get('/games/' + id);
   }
 
-  newGame(word) {
-    return this._http.post('/games', { word: word });
+  newGame(word, hint, host) {
+    return this._http.post('/games',
+      { word: word, hint: hint, host: host });
   }
 
 }

@@ -11,6 +11,7 @@ import { LogRegComponent } from './log-reg/log-reg.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GameComponent } from './game/game.component';
 import { HttpService } from './http.service';
+import { SocketService } from './socket.service';
 
 
 @NgModule({
@@ -27,7 +28,10 @@ import { HttpService } from './http.service';
     HttpClientModule,
     LockerModule
   ],
-  providers: [HttpService],
+  providers: [
+    HttpService, 
+    SocketService, 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
