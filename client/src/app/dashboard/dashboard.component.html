@@ -23,7 +23,7 @@
     <div *ngFor="let game of activeGames; let i = index">
       <div *ngIf="game.host._id == user._id || (game.player && game.player._id == user._id)">
         <a [routerLink]="['/game', game._id]">
-          {{i + 1}}) by {{game.host.username}} - (Hint: {{game.hint}})
+          {{i + 1}}) by {{game.host.name}} - (Hint: {{game.hint}})
         </a>
       </div>
     </div>
@@ -34,7 +34,7 @@
     <div *ngFor="let game of activeGames; let i = index">
       <div *ngIf="game.host._id != user._id && !game.player">
         <a [routerLink]="['/game', game._id]">
-          {{i + 1}}) by {{game.host.username}} - (Hint: {{game.hint}})
+          {{i + 1}}) by {{game.host.name}} - (Hint: {{game.hint}})
         </a>
       </div>
     </div>

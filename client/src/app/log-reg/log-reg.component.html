@@ -1,44 +1,15 @@
 <div class="center">
     <h1 class="welcome">Welcome to Burning Man</h1>
-</div>
-<div class="error">
-    {{error}}
-</div>
-<div class="columns">
-    <div class="column" id="registration">
-        <h2>Registration</h2>
-        <form (submit)="onRegisterSubmit()">
-            <div>
-                <label for="regUser.name">Name:</label>
-                <input type="text" name="regUser.name" [(ngModel)]="regUser.name">
-            </div>
-            <div>
-                <label for="regUser.username">Username:</label>
-                <input type="text" name="regUser.username" [(ngModel)]="regUser.username">
-            </div>
-            <div>
-                <label for="regUser.password">Password:</label>
-                <input type="password" name="regUser.password" [(ngModel)]="regUser.password">
-            </div>
-            <div>
-                <label for="pwConfirm">Confirm PW:</label>
-                <input type="password" name="pwConfirm" [(ngModel)]="pwConfirm">
-            </div>
-            <input type="submit" value="Register">
-        </form>
+
+    <div class="error">
+        {{error}}
     </div>
-    <div class="column" id="login">
-        <h2>Login</h2>
-        <form (submit)="onLoginSubmit()">
-            <div>
-                <label for="logUser.username">Username:</label>
-                <input type="text" name="logUser.username" [(ngModel)]="logUser.username">
-            </div>
-            <div>
-                <label for="logUser.password">Password:</label>
-                <input type="password" name="logUser.password" [(ngModel)]="logUser.password">
-            </div>
-            <input type="submit" value="Login">
-        </form>
-    </div>
+    
+    <form (submit)="onRegisterSubmit()">
+        <div>
+            <label for="regUser">Name:</label>
+            <input type="text" name="regUser" [(ngModel)]="regUser">
+        </div>
+        <input type="submit" value="Enter">
+    </form>
 </div>

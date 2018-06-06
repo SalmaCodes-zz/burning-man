@@ -2,9 +2,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
-var simplecrypt = require('simplecrypt');
-
-var sc = simplecrypt();
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -12,32 +9,13 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client/dist'));
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/gamedb');
+mongoose.connect('mongodb://localhost/burndb');
 
 var UserSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Name is required'],
         minlength: [3, 'A Name must contain at least three characters']
-    },
-    username: {
-        type: String,
-        required: [true, 'Username is required'],
-        unique: [true, 'This username already exists'],
-        minlength: [3, 'A username must contain at least three characters']
-    },
-    password: {
-        type: String,
-        required: [true, 'Password is required'],
-        minlength: [6, 'A password must contain at least six characters']
-    },
-    wins: {
-        type: Number,
-        default: 0
-    },
-    losses: {
-        type: Number,
-        default: 0
     }
 })
 
@@ -80,23 +58,6 @@ var GameSchema = new mongoose.Schema({
     player: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 })
 
-UserSchema.pre('save', function (next) {
-    var user = this;
-
-    // only hash the password if it has been modified (or is new)
-    if (!user.isModified('password')) return next();
-
-    // hash the password along with our new salt
-    var hash = sc.hash(user.password)
-    // override the cleartext password with the hashed one
-    user.password = hash;
-    next();
-})
-
-UserSchema.methods.comparePassword = function (candidatePassword, cb) {
-    var isMatch = sc.encrypt(candidatePassword) == this.password;
-    cb(null, isMatch);
-};
 
 var User = mongoose.model('User', UserSchema);
 var Game = mongoose.model('Game', GameSchema);
@@ -112,35 +73,11 @@ app.post('/users', function (req, res) {
     var user = new User(req.body);
     user.save(function (err) {
         if (err) {
+            console.log("ERROR", err)
             res.json({ message: "Error", error: err })
         } else {
+            console.log("SUCCESS", user)
             res.json({ message: "Success", data: user })
-        }
-    })
-})
-
-// Login
-app.post('/users/login', function (req, res) {
-    let username = req.body.username;
-    let password = req.body.password;
-    let error = { message: 'Login Error: ' };
-    User.findOne({ username: username }, function (err, user) {
-        if (err) {
-            res.json({ message: "Error", error: err })
-        } else {
-            if (user) {
-                user.comparePassword(password, function (err, isMatch) {
-                    if (isMatch) {
-                        res.json({ message: "Success", data: user })
-                    } else {
-                        error.message += "password doesn't match";
-                        res.json({ message: "Error", error: error })
-                    }
-                })
-            } else {
-                error.message += 'username not found.';
-                res.json({ message: "Error", error: error });
-            }
         }
     })
 })

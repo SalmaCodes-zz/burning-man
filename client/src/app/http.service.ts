@@ -8,16 +8,13 @@ export class HttpService {
   constructor(private _http: HttpClient) { }
 
   register(user) {
-    return this._http.post('/users', user);
-  }
-
-  login(user) {
-    return this._http.post('/users/login', user);
+    return this._http.post('/users', {name: user});
   }
 
   getActiveGames() {
     return this._http.get('/games');
   }
+
   getGame(id) {
     return this._http.get('/games/' + id);
   }
